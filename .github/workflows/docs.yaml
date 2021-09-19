@@ -7,6 +7,8 @@ jobs:
     steps:
       - name: Checkout source
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
       - name: Setup Conda Environment
         uses: conda-incubator/setup-miniconda@v2
@@ -25,6 +27,7 @@ jobs:
         run: |
           cd docs
           make html
+          cat build/html/index.html
 
       - name: Deploy docs
         if: ${{ github.ref == 'refs/heads/main' && github.event_name != 'pull_request'}}
